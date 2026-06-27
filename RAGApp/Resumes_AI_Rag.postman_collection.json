@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "e6bf5161-828d-4041-831d-fd20231b35bf",
+		"name": "Resumes_AI_Rag",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32911314"
+	},
+	"item": [
+		{
+			"name": "embedding",
+			"item": [
+				{
+					"name": "mistral_embedding",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"input\": \"hello world\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/embeddings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"embeddings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "search",
+			"item": [
+				{
+					"name": "BM25_search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"query\": \"Senior Node.js Developer with expertise in MongoDB\",\r\n  \"topK\": 10,\r\n  \"filters\": {\r\n    \"minYearsExperience\": 3\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/search/bm25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"search",
+								"bm25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vector_search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"query\": \"Give me selnum prfile with experince in banking domin\",\r\n  \"topK\": 10,\r\n  \"filters\": {\r\n    \"minYearsExperience\": 10\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/search/vector",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"search",
+								"vector"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hybrid_search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"senior node.js backend engineer\",\r\n    \"topK\": 20,\r\n    \"filters\": {\r\n        \"minYearsExperience\": 3\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/search/hybrid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"search",
+								"hybrid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "end_2_end",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"query\": \"senior node.js backend engineer with MongoDB experience\",\r\n  \"topK\": 10,\r\n  \"rerankTopK\": 8,\r\n  \"filters\": { \"minYearsExperience\": 4 },\r\n  \"summarize\": true,\r\n  \"summarizeTopK\": 3,\r\n  \"summarizeStyle\": \"short\",\r\n  \"summarizeMaxTokens\": 150\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rerank",
+			"item": [
+				{
+					"name": "llm_rerank_minimal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"query\": \"senior node.js backend engineer with MongoDB experience\",\r\n  \"candidates\": [\r\n    {\r\n      \"resumeId\": \"691db80aa895776f97b6eca6\",\r\n      \"snippet\": \"Experienced Node.js backend developer with 6 years building REST APIs and integrating MongoDB...\",\r\n      \"score\": 2.3\r\n    },\r\n    {\r\n      \"resumeId\": \"691db80aa895776f97b6eca7\",\r\n      \"snippet\": \"Fullstack engineer (Node.js, Express) with production MongoDB and replication experience...\",\r\n      \"score\": 1.9\r\n    }\r\n  ],\r\n  \"topK\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/search/rerank",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"search",
+								"rerank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "llm_rerank_full_content",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"query\": \"senior node.js backend engineer with MongoDB experience and scalable API design working in TCS.\",\r\n  \"candidates\": [\r\n    {\r\n            \"_id\": \"691db80aa895776f97b6eca9\",\r\n            \"name\": \"ANAND G\",\r\n            \"role\": \"Backend Developer API Automation Tester\",\r\n            \"total_Experience\": 3,\r\n            \"skills\": \"[\\\"Java\\\", \\\"SQL\\\", \\\"Selenium WebDriver\\\", \\\"Node.js\\\", \\\"Laravel\\\", \\\"Postman\\\", \\\"MySQL\\\", \\\"MongoDB\\\", \\\"PostgreSQL\\\", \\\"Oracle\\\", \\\"Git\\\", \\\"Jira\\\", \\\"Agile\\\", \\\"TestNG\\\", \\\"Cucumber\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6eca9\",\r\n            \"score\": 9.340643882751465,\r\n            \"snippet\": \"Anand G is a Backend Developer and API Automation Tester with over 3 years of experience in designing, developing, and testing scalable web applications. He has worked as a Data Support Engineer and Automation Test Engineer, contributing as an individual and team player. His expertise includes analyzing, designing, coding, and integrating in FTPC tool using Java and SQL. He has designed, developed, and maintained automated test scripts using Selenium WebDriver and participated in Agile sprint planning meetings. Anand has documented and tracked defects in Jira, providing detailed reports and re-testing after fixes. He has improved overall product quality by identifying critical defects early in the development cycle. Currently, he is working at SmackCoders, where he designs, develops, and maintains backend systems using Node.js and Laravel frameworks, creates and optimizes RESTful APIs, and collaborates closely with frontend, QA, and design teams. Anand holds a Bachelor's Degree in Electronics and Communication Engineering.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecca\",\r\n            \"name\": \"Lakshmi G\",\r\n            \"role\": \"Test Manager / Scrum Master\",\r\n            \"total_Experience\": 12,\r\n            \"skills\": \"[\\\"Selenium\\\", \\\"Cucumber\\\", \\\"TestNG\\\", \\\"Agile\\\", \\\"Scrum\\\", \\\"Test Management\\\", \\\"QA Strategy\\\", \\\"Functional Testing\\\", \\\"Backend Testing\\\", \\\"API Testing\\\", \\\"Automation Testing\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6ecca\",\r\n            \"score\": 5.976064682006836,\r\n            \"snippet\": \"Lakshmi G is a dynamic Test Manager and Certified Scrum Master with over 12 years of QA, testing, and project management experience in the IT industry. She has proven expertise in leading testing teams, managing client communications, driving Agile Scrum practices, and ensuring high-quality project delivery. Currently, she is leading QA and testing activities for a secured banking project at HCL Technologies, responsible for end-to-end test management and Scrum Master responsibilities. Her career began at Cognizant Technology Solutions, where she performed QA testing and proxy project management across multiple domains. Lakshmi holds a B.E. in Computer Science from Saranathan College of Engineering, Anna University, and is certified as a Scrum Master.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecce\",\r\n            \"name\": \"Harini S\",\r\n            \"role\": \"Software Tester\",\r\n            \"total_Experience\": 3,\r\n            \"skills\": \"[\\\"Manual\\\", \\\"Functional\\\", \\\"Regression\\\", \\\"Cross-Browser\\\", \\\"Database\\\", \\\"Selenium WebDriver\\\", \\\"TestNG\\\", \\\"Cucumber BDD\\\", \\\"Core Java\\\", \\\"SQL\\\", \\\"Maven\\\", \\\"Git\\\", \\\"Extent Reports\\\", \\\"Request Tracker\\\", \\\"SDLC\\\", \\\"STLC\\\", \\\"Agile\\\", \\\"Scrum\\\", \\\"Defect Lifecycle\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6ecce\",\r\n            \"score\": 1.857539176940918,\r\n            \"snippet\": \"Harini S is a dynamic QA Engineer with over 3 years of experience in manual and automation testing. She has expertise in building and enhancing hybrid automation frameworks, functional and regression testing, and backend validation with SQL. Harini has worked at ITGalax Solution Pvt. Ltd. as a Software Tester where she designed and executed test strategies for multiple complex projects in Agile environments. She performed functional, regression, database, and cross-browser testing to ensure product quality. Harini built and maintained hybrid automation frameworks using Selenium, Java, TestNG, and Cucumber, and validated backend processes with advanced SQL queries for data accuracy. She collaborated with cross-functional teams, mentored new joiners, and supported UAT. Harini has been recognized for delivering high-quality releases and was awarded Best Employee in 2024. She holds an M.Sc. in Information Technology from Alagappa University.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecd2\",\r\n            \"name\": \"Gokul\",\r\n            \"role\": \"Senior Software Engineer\",\r\n            \"total_Experience\": 7,\r\n            \"skills\": \"[\\\"Manual Testing\\\", \\\"Mobile Application Testing\\\", \\\"Agile\\\", \\\"Scrum\\\", \\\"Jira\\\", \\\"Python\\\", \\\"Robot Framework\\\", \\\"Appium\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6ecd2\",\r\n            \"score\": 1.4045263528823853,\r\n            \"snippet\": \"Gokul is a Senior Software Engineer with experience in manual and automation QA for mobile applications. He has worked on EcoStruxure Power Device and developed automated scripts for mobile application regression and functional testing using Python with Robot Framework. He has also performed functional testing, UI testing, and regression testing, and is involved in Agile ceremonies. Gokul has experience as a Senior Analyst at Allianz Technologies and as a Test Engineer at Speridian Technologies, where he worked on various testing methodologies and tools.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecea\",\r\n            \"name\": \"Santhosh G.\",\r\n            \"role\": \"QA Engineer\",\r\n            \"total_Experience\": 7,\r\n            \"skills\": \"[\\\"Selenium\\\", \\\"Playwright\\\", \\\"Playwright API Testing\\\", \\\"Java\\\", \\\"JavaScript\\\", \\\"HTML\\\", \\\"CSS\\\", \\\"MySQL\\\", \\\"SQL\\\", \\\"JIRA\\\", \\\"Git\\\", \\\"JMeter\\\", \\\"Agile\\\", \\\"Scrum\\\", \\\"Waterfall\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6ecea\",\r\n            \"score\": 1.393067479133606,\r\n            \"snippet\": \"Santhosh G. is a results-driven QA Engineer with over 7 years of experience in manual and automated testing, specializing in Playwright, Playwright API, performance, and functional testing across multiple environments. He has collaborated with product teams to translate business requirements into detailed test cases and specifications. At Aezion Pvt Ltd, he led the execution of test cases across different environments, ensuring comprehensive validation of web-based applications and backend systems. He spearheaded performance testing using JMeter, created and maintained automated test scripts using Selenium WebDriver, and managed defect lifecycle from identification to closure. Santhosh has also developed and executed detailed test cases for web and mobile applications at Muthu Soft Labs Pvt Ltd, ensuring thorough testing across multiple devices and platforms. He holds a B.E. in Electronics and Communication Engineering from Jeppiaar Institute of Engineering.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ed08\",\r\n            \"name\": \"Gayathri S\",\r\n            \"role\": \"Software Engineer\",\r\n            \"total_Experience\": 4.6,\r\n            \"skills\": \"[\\\"Java\\\", \\\"Selenium WebDriver\\\", \\\"JUnit\\\", \\\"TestNG\\\", \\\"Cucumber\\\", \\\"Data Driven\\\", \\\"SQL\\\", \\\"Git\\\", \\\"JIRA\\\", \\\"Postman\\\", \\\"REST Assured\\\", \\\"API Testing\\\", \\\"Functional Testing\\\", \\\"Integration Testing\\\", \\\"Regression Testing\\\", \\\"Black Box Testing\\\", \\\"Sanity Testing\\\", \\\"Smoke Testing\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6ed08\",\r\n            \"score\": 1.3332165479660034,\r\n            \"snippet\": \"Gayathri S is a Software Test Engineer with 4.6 years of experience in software testing. She has good experience in Java and Selenium WebDriver as tools, and has worked with test automation tools such as JUnit, TestNG, Data Driven framework, and Cucumber. She has been involved in writing feature files and test cases for requirements and has substantial experience in API testing using Postman and REST Assured. Gayathri is proficient in SQL queries and has expertise in testing browser compatibility for web applications across Firefox, Edge, and Chrome. She has experience in backend testing and executing SQL commands, as well as in functional testing, integration testing, regression testing, black box testing, sanity testing, and smoke testing. She has worked at Mphasis as a Software Engineer on projects like ITA Airways and Wordery, where she was responsible for creating test plans, writing defect reports, and collaborating with development teams to ensure timely resolution of issues. Gayathri possesses excellent communication and teamwork skills, with a strong attention to detail and organizational abilities.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecc3\",\r\n            \"name\": \"Mohan B\",\r\n            \"role\": \"Senior Software Engineer\",\r\n            \"total_Experience\": 7,\r\n            \"skills\": \"[\\\"Manual Testing\\\", \\\"Agile\\\", \\\"Scrum\\\", \\\"Jira\\\", \\\"Python\\\", \\\"Robotic Framework\\\", \\\"Appium\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6ecc3\",\r\n            \"score\": 1.3285250663757324,\r\n            \"snippet\": \"Mohan B is a Senior Software Engineer with experience in manual and automation QA for hybrid mobile applications. He has worked on EcoStruxure Power Device at Quest Global, developing automated scripts for regression and functional testing using Python with Robotic Framework and Appium. He has performed functional, UI, and regression testing, and has been involved in Agile ceremonies. Previously, he worked as a Senior Analyst at Allainz Technologies and as a Test Engineer at Speridian Technologies, where he was responsible for functional testing, UI testing, and defect reporting using Jira. He holds a B.E in Automobile Engineering from G.K.M College of Engineering and Technology.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80ba895776f97b6ed12\",\r\n            \"name\": \"Aisha N\",\r\n            \"role\": \"Senior QA-Engineer\",\r\n            \"total_Experience\": 9.5,\r\n            \"skills\": \"[\\\"Selenium\\\", \\\"Java\\\", \\\"SQL\\\", \\\"BDD\\\", \\\"JIRA\\\", \\\"qTest\\\", \\\"Jenkins\\\", \\\"Postman\\\", \\\"Agile Methodology\\\", \\\"Waterfall\\\"]\",\r\n            \"resumeId\": \"691db80ba895776f97b6ed12\",\r\n            \"score\": 1.3135439157485962,\r\n            \"snippet\": \"Aisha N is a results-driven Senior Software Engineer with a proven track record of enhancing software quality through high productivity and efficient task completion. She specializes in Manual and Selenium Automation Testing, excelling in Java programming and showcasing exceptional problem-solving skills. Aisha is renowned for meticulous Web Application Testing and effective team collaboration, significantly improving project outcomes. She has experience as a Senior QA Engineer at Virtusa since March 2020, previously working as a QA Engineer at Virtusa and Software Test Engineer at Polaris. Aisha has been involved in analyzing business requirements, creating detailed test scenarios, writing and executing test automation scripts, and performing manual testing encompassing functional, regression, and system integration. She has also tracked issues in Jira and coordinated with Test and Development teams to resolve issues.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecd4\",\r\n            \"name\": \"Ganesh V\",\r\n            \"role\": \"Senior Software Engineer\",\r\n            \"total_Experience\": 5,\r\n            \"skills\": \"[\\\"Java\\\", \\\"Selenium WebDriver\\\", \\\"TestNG\\\", \\\"Cucumber\\\", \\\"Agile\\\", \\\"Jira\\\", \\\"Functional Testing\\\", \\\"Regression Testing\\\", \\\"UAT Testing\\\", \\\"End-to-End Testing\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6ecd4\",\r\n            \"score\": 1.273701786994934,\r\n            \"snippet\": \"Ganesh V is a Senior Software Engineer with over 5 years of experience in manual and automation testing using Selenium with Java. He is conversant in TestNG, Cucumber, and the Page Object Model (POM) for test automation. He has skills in requirement analysis, test case design, and executing functional, regression, and UI testing. Currently, he works at Systems Technology Group, Inc. as a Senior Software Engineer where he developed and maintained automated test scripts for web applications using Selenium WebDriver with Java. He designed and implemented test frameworks using TestNG and Cucumber to enhance test coverage and clarity. He has participated in daily Agile stand-ups, sprint planning, and defect triage meetings, and has led User Acceptance Testing (UAT) to achieve successful market launches. He has also worked at Evolve Energy Group as a Technical Engineer and at Cognizant Technology Solutions as an Engineer in Trainee.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecc5\",\r\n            \"name\": \"Manoj Muthuvel\",\r\n            \"role\": \"Test Engineer\",\r\n            \"total_Experience\": 3.8,\r\n            \"skills\": \"[\\\"Selenium WebDriver\\\", \\\"Postman\\\", \\\"JIRA\\\", \\\"JMeter\\\", \\\"Cucumber\\\", \\\"TestNG\\\", \\\"MySQL\\\", \\\"SQL\\\", \\\"Agile\\\", \\\"Scrum\\\", \\\"SDLC\\\", \\\"STLC\\\"]\",\r\n            \"resumeId\": \"691db80aa895776f97b6ecc5\",\r\n            \"score\": 1.2692071199417114,\r\n            \"snippet\": \"Manoj Muthuvel is a Test Engineer with 3.8 years of experience in testing web and mobile applications across healthcare, e-commerce, and CMS (Drupal) domains. He has strong hands-on expertise in Selenium WebDriver, Postman, JIRA, and JMeter, combined with a deep understanding of manual testing practices. He has worked at Innoppl IT Services Pvt. Ltd. where he automated test scenarios using Selenium and maintained scripts in TestNG framework. He performed API testing using Postman and validated backend data with MySQL, achieving a 30% reduction in open defects through optimized testing workflows. He participated in Agile ceremonies and collaborated with developers and BAs, enhancing test coverage by 15% through effective test planning. Previously, he worked as a Software Tester at RadicalStart InfoLab Pvt. Ltd. where he prepared test cases from requirements and user stories, performed manual and exploratory testing of web and mobile interfaces, and reported and tracked bugs using JIRA. He also gained foundational experience in SDLC, STLC, and QA lifecycle at Surface Insight Technologies. He holds a Bachelor of Engineering in Computer Science Engineering from Anna University.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecb1\",\r\n            \"name\": \"VIGNESH S\",\r\n            \"role\": \"Senior QA Engineer\",\r\n            \"total_Experience\": 5.3,\r\n            \"skills\": \"[\\\"Selenium\\\", \\\"API Testing\\\", \\\"UI Testing\\\", \\\"Performance Testing\\\", \\\"MySQL\\\", \\\"GitHub\\\", \\\"Jenkins\\\", \\\"Kubernetes\\\", \\\"Agile\\\", \\\"Java\\\", \\\"TestNG\\\", \\\"JIRA\\\", \\\"Snowflake\\\", \\\"Databricks\\\", \\\"Eclipse IDE\\\"]\",\r\n            \"score\": 0.6793423019414688,\r\n            \"resumeId\": \"691db80aa895776f97b6ecb1\",\r\n            \"snippet\": \"VIGNESH S is a Senior QA Engineer with 5.3 years of experience in manual, automation, and API testing. He has worked at Freshworks Private Limited where he designed, developed, and maintained testing artifacts such as Test Plans and Test Strategies using JIRA and Confluence. He performed functional, regression, exploratory, and performance testing on web applications and APIs, and conducted API testing using Postman and Rest Assured. He built and maintained a Selenium WebDriver based automation framework using Java and TestNG, integrated automation test suites into CI/CD pipelines using Jenkins and GitHub, and debugged automation failures. VIGNESH has a B.Tech in Information Technology from Sathyabama University and an MBA in Human Resources from NMIMS.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ece5\",\r\n            \"name\": \"Senthil Raj S\",\r\n            \"role\": \"Software Test Engineer\",\r\n            \"total_Experience\": 3.5,\r\n            \"skills\": \"[\\\"Java\\\", \\\"Selenium WebDriver\\\", \\\"API Testing\\\", \\\"Core Java\\\", \\\"Cucumber\\\", \\\"TestNG\\\", \\\"POM\\\", \\\"Junit\\\", \\\"Data Driven\\\", \\\"Maven\\\", \\\"Jenkins\\\", \\\"MySQL\\\", \\\"JIRA\\\", \\\"Postman\\\", \\\"Rest Assured\\\"]\",\r\n            \"score\": 0.6633656712664712,\r\n            \"resumeId\": \"691db80aa895776f97b6ece5\",\r\n            \"snippet\": \"Senthil Raj S is a Software Test Engineer with 3.5 years of industry experience in manual and automated testing, particularly in the banking and e-commerce domains. He has extensive experience in automation script coding using Selenium WebDriver with Java, and is skilled in Agile-Scrum methodologies. His expertise includes test planning, designing test cases, and developing reusable functional components in automation frameworks. He has worked on projects such as the Bendigo Bank Digital Transformation and Macy's E-commerce Modernization, focusing on enhancing user experience and operational efficiency through automation and API testing. Senthil is familiar with various tools including JIRA for bug tracking, and has experience in performance testing using JMeter.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecf5\",\r\n            \"name\": \"Naveen R\",\r\n            \"role\": \"Test Engineer (Automation and Manual)\",\r\n            \"total_Experience\": 3.5,\r\n            \"skills\": \"[\\\"Java\\\", \\\"Selenium\\\", \\\"Postman\\\", \\\"Rest Assured\\\", \\\"API Testing\\\", \\\"Manual Testing\\\", \\\"Performance Testing\\\", \\\"SVN\\\", \\\"JIRA\\\"]\",\r\n            \"score\": 0.6591262835582604,\r\n            \"resumeId\": \"691db80aa895776f97b6ecf5\",\r\n            \"snippet\": \"Naveen R is a Test Engineer with experience in both manual and automation testing. He has worked at Srinsoft Technologies since July 2021, focusing on API testing, web automation, and performance testing. He has a background in Mechanical Engineering from Anna University, Chennai. His technical skills include Java, Selenium, Postman, Rest Assured, and JIRA. He has been involved in projects like Enginero and BIMDeX Customer Portal, where he designed and implemented automation scripts, performed functional testing, and managed defect reporting.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80ba895776f97b6ed0e\",\r\n            \"name\": \"Ashok\",\r\n            \"role\": \"Associate Specialist – Quality\",\r\n            \"total_Experience\": 10,\r\n            \"skills\": \"[\\\"Selenium\\\", \\\"Appium\\\", \\\"Playwright\\\", \\\"Cypress\\\", \\\"Rest Assured\\\", \\\"JMeter\\\", \\\"Java\\\", \\\"JavaScript\\\", \\\"C#\\\", \\\"TestNG\\\", \\\"Cucumber\\\", \\\"Jenkins\\\", \\\"Docker\\\", \\\"Git\\\", \\\"GitHub\\\", \\\"Bitbucket\\\", \\\"Maven\\\", \\\"Gradle\\\", \\\"MySQL\\\", \\\"Oracle\\\", \\\"Postman\\\", \\\"AWS\\\", \\\"Windows\\\", \\\"Jira\\\", \\\"Confluence\\\", \\\"IntelliJ IDEA\\\", \\\"Eclipse\\\"]\",\r\n            \"score\": 0.6569351906488968,\r\n            \"resumeId\": \"691db80ba895776f97b6ed0e\",\r\n            \"snippet\": \"Ashok is a highly skilled and results-driven Software Development Engineer in Test (SDET) with 10 years of experience in designing and implementing robust automated test solutions for web, mobile, and API applications. He is proficient in utilizing automation tools such as Selenium, Appium, Playwright, and Cypress, with strong expertise in Java, Python, and JavaScript. Ashok has experience in implementing test frameworks with TestNG and Cucumber, as well as integrating CI/CD pipelines using Jenkins and Docker. He has worked in various roles, including Associate Specialist at Synechron Technologies, where he designed and developed a comprehensive automation framework using Selenium, TestNG, and Java for web application testing, achieving a 40% reduction in manual testing effort. He has also worked as a Principal Software Engineer at SA Technologies, where he automated mobile testing for Android applications using Appium, and as a QA Specialist at Neural Rays AI, where he implemented end-to-end automation for web applications using Cypress and JavaScript. Ashok holds a B. Tech in Information Technology from St. Peters Engineering College.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecf8\",\r\n            \"name\": \"NANDHINI N\",\r\n            \"role\": \"Automation Test Engineer\",\r\n            \"total_Experience\": 6,\r\n            \"skills\": \"[\\\"Core Java\\\", \\\"Selenium WebDriver\\\", \\\"TestNG\\\", \\\"Cucumber Framework\\\", \\\"Rest Assured\\\", \\\"Postman\\\", \\\"JMeter\\\", \\\"GIT\\\", \\\"Agile\\\", \\\"Scrum\\\"]\",\r\n            \"score\": 0.6557641650505757,\r\n            \"resumeId\": \"691db80aa895776f97b6ecf8\",\r\n            \"snippet\": \"NANDHINI N is an Automation Test Engineer with 3.5 years of hands-on experience in designing, developing, and executing automated test scripts. Proficient in automation frameworks using Core Java, Selenium, and Cucumber. Experienced in API testing with Rest-Assured, Postman, and JMeter, integrated with TestNG for seamless testing workflows. Skilled in improving testing efficiency, identifying critical bugs, and ensuring the delivery of high-quality software applications. Currently working at Engage2Serve in Chennai, leading testing for a Student Life Cycle Management Application, optimizing automation frameworks, and enhancing API testing efficiency. Holds a Bachelor's degree in Computer Science from The New College, Chennai.\"\r\n        },\r\n        {\r\n            \"_id\": \"691db80aa895776f97b6ecf1\",\r\n            \"name\": \"RAGHU V\",\r\n            \"role\": \"Senior Consultant\",\r\n            \"total_Experience\": 13,\r\n            \"skills\": \"[\\\"Postman\\\", \\\"SoapUI\\\", \\\"ReadyAPI\\\", \\\"Manual Testing\\\", \\\"Jenkins\\\", \\\"Git\\\", \\\"Azure DevOps\\\", \\\"Agile Methodology\\\", \\\"Karate Framework\\\", \\\"Rest Assured\\\", \\\"JMeter\\\", \\\"Selenium BDD Cucumber\\\", \\\"Java\\\", \\\"SQL Server\\\", \\\"MySQL\\\", \\\"Oracle\\\"]\",\r\n            \"score\": 0.654442105036634,\r\n            \"resumeId\": \"691db80aa895776f97b6ecf1\",\r\n            \"snippet\": \"RAGHU V has over 13 years of experience in web application testing across various domains including E-learning, Transportation, and Finance. He has expertise in manual and API testing, utilizing tools such as Postman, ReadyAPI, and Selenium WebDriver. He has served as a Senior Consultant at ConsignSpaceSolutions, leading QA efforts and managing teams. RAGHU is proficient in Agile methodologies and has experience in defect tracking using tools like Jira and Azure DevOps. He holds a Bachelor of Engineering in Electrical and Electronics and an MBA in Finance and Marketing.\"\r\n        }\r\n  ],\r\n  \"topK\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/search/rerank",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"search",
+								"rerank"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "summarize",
+			"item": [
+				{
+					"name": "summarize",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"Senior Node.js backend engineer with MongoDB experience\",\r\n    \"candidate\": {\r\n        \"resumeId\": \"691db80aa895776f97b6eca6\",\r\n        \"name\": \"Ashwin P\",\r\n        \"snippet\": \"Built scalable Node.js REST APIs, optimized MongoDB queries, designed sharding and indexing strategies...\"\r\n    },\r\n    \"style\": \"detailed \",\r\n    \"maxTokens\": 150\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/search/summarize",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"search",
+								"summarize"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health",
+			"item": [
+				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DB_health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/health/db",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"health",
+								"db"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

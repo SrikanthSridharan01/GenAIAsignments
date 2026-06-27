@@ -1,0 +1,357 @@
+{
+  "info": {
+    "_postman_id": "a0d7aad0-e285-46c3-89dc-f2b5252c3734",
+    "name": "A_Resume_Rag",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37193014",
+    "_collection_link": "https://go.postman.co/collection/37193014-a0d7aad0-e285-46c3-89dc-f2b5252c3734?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "upload",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "type": "file",
+              "contentType": "application/pdf",
+              "key": "file",
+              "src": "/C:/Users/DELL/Downloads/Resumes (1)/Resumes (1)/Resumes/Vishnupriya Pinaca.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/v1/resume/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "v1",
+            "resume",
+            "upload"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "extract",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "type": "file",
+              "contentType": "application/pdf",
+              "key": "file",
+              "src": [
+                "u",
+                "m",
+                "m",
+                "y",
+                ".",
+                "p",
+                "f"
+              ]
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/v1/resume/extract",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "v1",
+            "resume",
+            "extract"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "clean",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\":\"ASHWIN P\\n\\n\\nQA Engineer\\nASHWIN P\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/v1/resume/clean",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "v1",
+            "resume",
+            "clean"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "parse",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\":\"ASHWIN P\\nQA Engineer\\nEmail: ashwin@gmail.com\\nPhone: 9876543210\\nLocation: Chennai\\nCompany: TCS\\nEducation: B.E Computer Science\\nExperience: 3.3 years\\nSkills: Java Selenium Playwright\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/v1/resume/parse",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "v1",
+            "resume",
+            "parse"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "skills",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\":\"Experience in Java, Selenium, Playwright and Python.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/v1/resume/skills",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "v1",
+            "resume",
+            "skills"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "llm-parse",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\":\"ASHWIN P\\nQA Engineer\\nEmail: ashwin@gmail.com\\nPhone: 9876543210\\nLocation: Chennai\\nCompany: TCS\\nEducation: B.E Computer Science\\nExperience: 3.3 years\\nSkills: Java Selenium Playwright\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/v1/resume/llm-parse",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "v1",
+            "resume",
+            "llm-parse"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "embed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\":\"ASHWIN P\\nQA Engineer\\nEmail: ashwin@gmail.com\\nPhone: 9876543210\\nLocation: Chennai\\nCompany: TCS\\nEducation: B.E Computer Science\\nExperience: 3.3 years\\nSkills: Java Selenium Playwright\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3001/v1/resume/embed",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "v1",
+            "resume",
+            "embed"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "store",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"fileName\": \"resume.pdf\",\r\n    \"rawText\": \"Resume content\",\r\n    \"name\": \"ASHWIN P\",\r\n    \"email\": \"ashwin@gmail.com\",\r\n    \"phone\": \"9876543210\",\r\n    \"location\": \"Chennai\",\r\n    \"company\": \"TCS\",\r\n    \"role\": \"QA Engineer\",\r\n    \"education\": \"B.E Computer Science\",\r\n    \"totalExperience\": 3.3,\r\n    \"skills\": [\r\n        \"Java\",\r\n        \"Selenium\"\r\n    ],\r\n    \"embedding\": [\r\n        0.1,\r\n        0.2,\r\n        0.3\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/v1/resume/store",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "v1",
+            "resume",
+            "store"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "inject",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "type": "file",
+              "contentType": "application/pdf",
+              "key": "file",
+              "src": "dummy.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3001/v1/resume/inject",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3001",
+          "path": [
+            "v1",
+            "resume",
+            "inject"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "inject",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "type": "file",
+              "contentType": "application/pdf",
+              "key": "file",
+              "src": "/C:/Users/DELL/Downloads/Resumes (1)/Resumes (1)/Resumes/Vishnupriya Pinaca.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/v1/resume/inject",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "v1",
+            "resume",
+            "inject"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
